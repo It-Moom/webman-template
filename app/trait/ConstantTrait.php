@@ -11,6 +11,7 @@
 namespace app\trait;
 
 use app\annotation\Constant;
+use app\constant\consist\HttpResponseCode;
 
 trait ConstantTrait
 {
@@ -32,20 +33,21 @@ trait ConstantTrait
         return '';
     }
 
-    /**
-     * 获取常量值
-     * @param string $label 常量名称
-     * @return string 常量值
+/**
+     * 获取常量列表
+     * @return array 常量列表
      */
-    public static function getList(string $label): array
+    public static function getList(): array
     {
-        $reflectionClass = new \ReflectionClass(static::class);
-        $constants = $reflectionClass->getConstants();
-        foreach ($constants as $name => $constant) {
-            if ($reflectionClass->getConstant($name) === $label) {
-                return $constant;
-            }
+        $reflector = new \ReflectionClass(static::class);
+        $constants = $reflector->getConstants();
+        $result = [];
+        foreach ($constants as $value) {
+            $result[] = [
+                'label' => HttpResponseCode::getLabel($value),
+                'value' => $value,
+            ];
         }
-        return '';
+        return $result;
     }
 }

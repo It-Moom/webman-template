@@ -13,7 +13,7 @@ class IndexController
      */
     public function index()
     {
-        return json(HttpResponseUtil::requestSuccess('Welcome to FastMall API'));
+        return json(HttpResponseUtil::requestSuccess('Welcome to webman API'));
     }
 
     /**
@@ -22,17 +22,7 @@ class IndexController
      */
     public function responseCode()
     {
-        $reflector = new \ReflectionClass(HttpResponseCode::class);
-        $constants = $reflector->getConstants();
-        $result = [];
-        foreach ($constants as $value) {
-            $result[] = [
-                'label' => HttpResponseCode::getLabel($value),
-                'value' => $value,
-            ];
-        }
-
-        return json(HttpResponseUtil::requestSuccess($result));
+        return json(HttpResponseUtil::requestSuccess(HttpResponseCode::getList()));
     }
 
 }
