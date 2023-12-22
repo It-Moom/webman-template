@@ -13,10 +13,10 @@
  */
 
 return [
-    'listen' => getenv('SERVER_URL', 'http://0.0.0.0:8989'),
+    'listen' => env('SERVER_URL', 'http://0.0.0.0:8989'),
     'transport' => 'tcp',
     'context' => [],
-    'name' => getenv('SERVER_NAME', 'webman'),
+    'name' => env('SERVER_NAME', 'webman'),
     'count' => cpu_count() * 4,
     'user' => '',
     'group' => '',

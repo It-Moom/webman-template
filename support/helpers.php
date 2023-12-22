@@ -515,3 +515,13 @@ function cpu_count(): int
     }
     return $count > 0 ? $count : 4;
 }
+
+if(!function_exists('env')){
+    /**
+     * 环境变量加载
+     */
+    function env(string $key = null, mixed $default = null){
+        $loader =  new \app\utils\EnvLoaderUtil(base_path('.env'));
+        return $loader::get($key,$default);
+    }
+}
