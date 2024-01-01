@@ -19,7 +19,7 @@ class HttpResponseUtil
      * 参数有误
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
     public static function paramError(?string $message = null, ?array $errors = [])
     {
@@ -51,7 +51,7 @@ class HttpResponseUtil
     /**
      * 请求成功
      * @param mixed $data 参数数据
-     * @return array|\support\Response
+     * @return array|Response 返回结果
      */
     public static function requestSuccess(mixed $data = null)
     {
