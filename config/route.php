@@ -19,7 +19,7 @@ use Webman\Route;
 Route::disableDefaultRoute();
 // 404异常
 Route::fallback(function () {
-    return json(HttpResponseUtil::requestFail('路由有误'));
+    return HttpResponseUtil::requestFail('路由有误');
 });
 // 路由加载
 require_once base_path('routes/index.php');

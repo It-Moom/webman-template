@@ -11,6 +11,7 @@
 namespace app\utils;
 
 use app\constant\consist\HttpResponseCode;
+use support\Response;
 
 class HttpResponseUtil
 {
@@ -20,7 +21,7 @@ class HttpResponseUtil
      * @param array|null $errors 错误信息
      * @return array 返回结果
      */
-    public static function paramError(?string $message = null, ?array $errors = []): array
+    public static function paramError(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::PARAM_ERROR, $message, $errors);
     }
@@ -29,9 +30,9 @@ class HttpResponseUtil
      * 数据已存在
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function dataExists(?string $message = null, ?array $errors = []): array
+    public static function dataExists(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::DATA_EXIST, $message, $errors);
     }
@@ -40,9 +41,9 @@ class HttpResponseUtil
      * 数据有误
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function dataError(?string $message = null, ?array $errors = []): array
+    public static function dataError(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::DATA_ERROR, $message, $errors);
     }
@@ -50,26 +51,26 @@ class HttpResponseUtil
     /**
      * 请求成功
      * @param mixed $data 参数数据
-     * @return array 返回结果
+     * @return array|\support\Response
      */
-    public static function requestSuccess(mixed $data = null): array
+    public static function requestSuccess(mixed $data = null)
     {
-        return [
-            'code' => HttpResponseCode::REQUEST_SUCCESS,
+        return json([
+            'code'    => HttpResponseCode::REQUEST_SUCCESS,
             'success' => true,
-            'data' => $data,
+            'data'    => $data,
             'message' => HttpResponseCode::getLabel(HttpResponseCode::REQUEST_SUCCESS),
-            'errors' => [],
-        ];
+            'errors'  => [],
+        ]);
     }
 
     /**
      * 禁止访问
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function requestDeny(?string $message = null, ?array $errors = []): array
+    public static function requestDeny(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::REQUEST_DENY, $message, $errors);
     }
@@ -78,9 +79,9 @@ class HttpResponseUtil
      * 权限不足
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function withoutAuth(?string $message = null, ?array $errors = []): array
+    public static function withoutAuth(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::REQUEST_WITHOUT_AUTH, $message, $errors);
     }
@@ -89,9 +90,9 @@ class HttpResponseUtil
      * 查询为空
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function queryVoid(?string $message = null, ?array $errors = []): array
+    public static function queryVoid(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::QUERY_VOID, $message, $errors);
     }
@@ -100,9 +101,9 @@ class HttpResponseUtil
      * Token无效
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function tokenInvalid(?string $message = null, ?array $errors = []): array
+    public static function tokenInvalid(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::TOKEN_INVALID, $message, $errors);
     }
@@ -111,9 +112,9 @@ class HttpResponseUtil
      * 请求过于频繁
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function tooManyRequest(?string $message = null, ?array $errors = []): array
+    public static function tooManyRequest(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::TOO_MANY_REQUEST, $message, $errors);
     }
@@ -122,9 +123,9 @@ class HttpResponseUtil
      * 请求过期
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response 返回结果
      */
-    public static function requestExpired(?string $message = null, ?array $errors = []): array
+    public static function requestExpired(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::REQUEST_EXPIRED, $message, $errors);
     }
@@ -133,9 +134,9 @@ class HttpResponseUtil
      * 请求失败
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return  array|Response 返回结果
      */
-    public static function requestFail(?string $message = null, ?array $errors = []): array
+    public static function requestFail(?string $message = null, ?array $errors = [])
     {
         return self::handleError(HttpResponseCode::REQUEST_FAIL, $message, $errors);
     }
@@ -145,16 +146,16 @@ class HttpResponseUtil
      * @param int $code 错误码
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
-     * @return array 返回结果
+     * @return array|Response
      */
-    private static function handleError(string $value, ?string $message, ?array $errors): array
+    private static function handleError(string $value, ?string $message, ?array $errors)
     {
-        return [
-            'code' => $value,
+        return json([
+            'code'    => $value,
             'success' => false,
-            'data' => null,
+            'data'    => null,
             'message' => $message ?? HttpResponseCode::getLabel($value),
-            'errors' => $errors,
-        ];
+            'errors'  => $errors,
+        ]);
     }
 }

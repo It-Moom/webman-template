@@ -13,7 +13,7 @@ class IndexController
      */
     public function index()
     {
-        return json(HttpResponseUtil::requestSuccess('Welcome to webman API'));
+        return HttpResponseUtil::requestSuccess('Welcome to webman API');
     }
 
     /**
@@ -22,7 +22,7 @@ class IndexController
      */
     public function responseCode()
     {
-        return json(HttpResponseUtil::requestSuccess(HttpResponseCode::getList()));
+        return HttpResponseUtil::requestSuccess(HttpResponseCode::getList());
     }
 
 }
