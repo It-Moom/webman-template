@@ -143,18 +143,18 @@ class HttpResponseUtil
 
     /**
      * 处理错误
-     * @param int $code 错误码
+     * @param string $code 错误码
      * @param string|null $message 提示信息
      * @param array|null $errors 错误信息
      * @return array|Response
      */
-    private static function handleError(string $value, ?string $message, ?array $errors)
+    private static function handleError(string $code, ?string $message, ?array $errors)
     {
         return json([
-            'code'    => $value,
+            'code'    => $code,
             'success' => false,
             'data'    => null,
-            'message' => $message ?? HttpResponseCode::getLabel($value),
+            'message' => $message ?? HttpResponseCode::getLabel($code),
             'errors'  => $errors,
         ]);
     }
