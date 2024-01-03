@@ -999,7 +999,7 @@
         },
         {
             "name": "illuminate/pagination",
-            "version": "v10.38.1",
+            "version": "v10.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pagination.git",
