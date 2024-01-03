@@ -154,7 +154,7 @@ class HttpResponseUtil
             'code'    => $code,
             'success' => false,
             'data'    => null,
-            'message' => $message ?? HttpResponseCode::getLabel($code),
+            'message' => $message ?: HttpResponseCode::getLabel($code),
             'errors'  => $errors,
         ]);
     }
