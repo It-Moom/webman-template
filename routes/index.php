@@ -14,3 +14,7 @@ use Webman\Route;
 Route::any('/', [app\controller\IndexController::class, 'index']);
 // http返回code说明
 Route::any('/response/code', [app\controller\IndexController::class, 'responseCode']);
+// 给所有OPTIONS请求设置跨域
+Route::options('[{path:.+}]', function (){
+  return response();
+});
